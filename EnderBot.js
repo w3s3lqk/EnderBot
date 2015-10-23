@@ -19,13 +19,13 @@ L===-L-L-L==-L---L-L-L-L-L-L==-L===-L-
 // @name EnderBot
 // @namespace EnderBot
 // @include http://agar.io/*
-// @version 1.4
+// @version 1.3
 // @grant none
 // @author EnderBel Skype:Ytrioq
 // @require http://www.parsecdn.com/js/parse-1.5.0.min.js
 // ==/UserScript==
 
-var EnderBotVersion = 1.4;
+var EnderBotVersion = 1.3;
 
 //TODO: Team mode
 // Detect when people are merging
@@ -834,7 +834,7 @@ function EnderBot() {
                 //Loop through all the player's cells.
                 for (var k = 0; k < player.length; k++) {
                     if (true) {
- drawPoint(player[k].x, player[k].y + player[k].size, 0, "" + (getLastUpdate() - player[k].birth) + " / " + (30000 + (player[k].birthMass * 50) - (getLastUpdate() - player[k].birth)) + " / " + player[k].birthMass);
+ drawPoint(player[k].x, player[k].y + player[k].size, 0, "" + (getLastUpdate() - player[k].birth) + " / " + (30000 + (player[k].birthMass * 57) - (getLastUpdate() - player[k].birth)) + " / " + player[k].birthMass);
                     }
                 }
 
