@@ -19,13 +19,13 @@ L===-L-L-L==-L---L-L-L-L-L-L==-L===-L-
 // @name EnderBot
 // @namespace EnderBot
 // @include http://agar.io/*
-// @version 1.3
+// @version 1.4
 // @grant none
 // @author EnderBel Skype:Ytrioq
 // @require http://www.parsecdn.com/js/parse-1.5.0.min.js
 // ==/UserScript==
 
-var EnderBotVersion = 1.3;
+var EnderBotVersion = 1.4;
 
 //TODO: Team mode
 // Detect when people are merging
