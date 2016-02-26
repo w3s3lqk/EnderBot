@@ -1,14 +1,10 @@
 // ==UserScript==
-// @name         enderbot
-// @namespace    http://vk.ru/enderbel
-// @version      0.098
-// @description  to be writen
-// @author       EnderBel
-// @license      MIT
-// @match        http://agar.io/*
-// @require      https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.4/socket.io.min.js
-// @grant        none
-// @run-at       document-start
+// @name AposLauncher
+// @namespace AposLauncher
+// @include http://agar.io/*
+// @version 4.147
+// @grant none
+// @author http://www.twitch.tv/apostolique
 // ==/UserScript==
 
 //http://agar.io/img/background.png
