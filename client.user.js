@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EnderBot
 // @namespace    http://vk.com/enderbot
-// @version      2.23
+// @version      2.24
 // @description  Test bots
 // @author       EnderBel
 // @license      MIT EnderCorporations
@@ -13,12 +13,11 @@
 // ==/UserScript==
 
 //Последнии 5 обновлений
-// 2.18-2.19 - Изменен интерфейс бота и игры.
 // 2.20 - Фикс багов
 // 2.21 - Чит просмотр массы врагов
 // 2.22 - добавлен SuperSplit
 // 2.23 - прозрачная колючка.
-
+// 2.24 - фикс багов
 setTimeout(function() {
     var real_minx = -7071;
     var real_miny = -7071;
@@ -125,7 +124,7 @@ function getCell(){
     }
         return me[0];
 }
-function getCell(){var me=[];for(var key in window.agar.allCells){var cell=window.agar.allCells[key];if(isMe(cell)){me.push(cell)}}return me[0]}var skin_var=0;function emitPosition(){for(i=0;i<agar.myCells.length;i++){}x=(mouseX-window.innerWidth/2)/window.agar.drawScale+window.agar.rawViewport.x;y=(mouseY-window.innerHeight/2)/window.agar.drawScale+window.agar.rawViewport.y;if(!movetoMouse){x=getCell().x;y=getCell().y}socket.emit("pos",{"x":x-(real_minx+7071),"y":y-(real_miny+7071),"dimensions":[-7071,-7071,7071,7071]})}function emitSplit(){socket.emit("cmd",{"name":"split"})}function emitMassEject(){socket.emit("cmd",{"name":"eject"})}function toggleMovement(){canMove=!canMove;switch(canMove){case true:canvas.onmousemove=moveEvent[0];moveEvent[0]=null;canvas.onmousedown=moveEvent[1];moveEvent[1]=null;break;case false:canvas.onmousemove({clientX:innerWidth/2,clientY:innerHeight/2});moveEvent[0]=canvas.onmousemove;canvas.onmousemove=null;moveEvent[1]=canvas.onmousedown;canvas.onmousedown=null;break}}interval_id=setInterval(function(){emitPosition()},100);interval_id2=setInterval(function(){transmit_game_server_if_changed()},5000);document.addEventListener('keydown',function(e){var key=e.keyCode||e.which;switch(key){case 65:movetoMouse=!movetoMouse;if(movetoMouse){document.getElementById('ismoveToMouse').innerHTML="За мышкой."}else{document.getElementById('ismoveToMouse').innerHTML="За массой."}break;case 68:toggleMovement();if(!canMove){document.getElementById('isStopMove').innerHTML="Стоим"}else{document.getElementById('isStopMove').innerHTML="Идем"}break;case 69:emitSplit();break;case 82:emitMassEject();case 83:emitSplit();emitSplit();emitSplit();emitSplit();emitSplit();break}});function transmit_game_server_if_changed(){if(last_transmited_game_server!=window.agar.ws){last_transmited_game_server=window.agar.ws;socket.emit("cmd",{"name":"connect_server","ip":last_transmited_game_server})}}function transmit_game_server(){last_transmited_game_server=window.agar.ws;socket.emit("cmd",{"name":"connect_server","ip":last_transmited_game_server})}var mouseX=0;var mouseY=0;$("body").mousemove(function(event){mouseX=event.clientX;mouseY=event.clientY});window.agar.minScale=-30},5000);
+function getCell(){var me=[];for(var key in window.agar.allCells){var cell=window.agar.allCells[key];if(isMe(cell)){me.push(cell)}}return me[0]}var skin_var=0;function emitPosition(){for(i=0;i<agar.myCells.length;i++){}x=(mouseX-window.innerWidth/2)/window.agar.drawScale+window.agar.rawViewport.x;y=(mouseY-window.innerHeight/2)/window.agar.drawScale+window.agar.rawViewport.y;if(!movetoMouse){x=getCell().x;y=getCell().y}socket.emit("pos",{"x":x-(real_minx+7071),"y":y-(real_miny+7071),"dimensions":[-7071,-7071,7071,7071]})}function emitSplit(){socket.emit("cmd",{"name":"split"})}function emitMassEject(){socket.emit("cmd",{"name":"eject"})}function toggleMovement(){canMove=!canMove;switch(canMove){case true:canvas.onmousemove=moveEvent[0];moveEvent[0]=null;canvas.onmousedown=moveEvent[1];moveEvent[1]=null;break;case false:canvas.onmousemove({clientX:innerWidth/2,clientY:innerHeight/2});moveEvent[0]=canvas.onmousemove;canvas.onmousemove=null;moveEvent[1]=canvas.onmousedown;canvas.onmousedown=null;break}}interval_id=setInterval(function(){emitPosition()},100);interval_id2=setInterval(function(){transmit_game_server_if_changed()},5000);document.addEventListener('keydown',function(e){var key=e.keyCode||e.which;switch(key){case 65:movetoMouse=!movetoMouse;if(movetoMouse){document.getElementById('ismoveToMouse').innerHTML="За мышкой."}else{document.getElementById('ismoveToMouse').innerHTML="За массой."}break;case 68:toggleMovement();if(!canMove){document.getElementById('isStopMove').innerHTML="Стоим"}else{document.getElementById('isStopMove').innerHTML="Идем"}break;case 69:emitSplit();break;case 82:emitMassEject();break;case 83:emitSplit();emitSplit();emitSplit();emitSplit();emitSplit();break}});function transmit_game_server_if_changed(){if(last_transmited_game_server!=window.agar.ws){last_transmited_game_server=window.agar.ws;socket.emit("cmd",{"name":"connect_server","ip":last_transmited_game_server})}}function transmit_game_server(){last_transmited_game_server=window.agar.ws;socket.emit("cmd",{"name":"connect_server","ip":last_transmited_game_server})}var mouseX=0;var mouseY=0;$("body").mousemove(function(event){mouseX=event.clientX;mouseY=event.clientY});window.agar.minScale=-30},5000);
 var allRules = [
     { hostname: ["agar.io"],
       scriptUriRe: /^http:\/\/agar\.io\/main_out\.js/,
@@ -434,3 +433,9 @@ function tryReplace(node, event) {
 
     return true
 }
+
+
+
+
+
+
