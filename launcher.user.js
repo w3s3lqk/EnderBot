@@ -4,9 +4,9 @@
 // @include      http://agar.io/*
 // @require      https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js
 // @require      http://pastebin.com/raw/rNMwKc35
-// @require      http://pastebin.com/raw/uFsfzUUC
+// @require      http://pastebin.com/raw/P1wWXuYj
 // @require      https://code.jquery.com/jquery-2.2.3.min.js
-// @version      3.0
+// @version      4.0
 // @grant        none
 // @author       http://Vk.com/EnderBel | http://Vk.com/EnderBot
 // @run-at       document-start
