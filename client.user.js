@@ -1,23 +1,15 @@
 // ==UserScript==
 // @name         EnderBot
-// @namespace    http://vk.com/enderbot
-// @version      2.24
-// @description  Test bots
-// @author       EnderBel
-// @license      MIT EnderCorporations
-// @match        http://agar.io/*
+// @namespace    EnderBot
+// @include      http://agar.io/*
 // @require      https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js
-// @require      http://pastebin.com/raw/i0bVtYW7
+// @require      http://pastebin.com/raw/rNMwKc35
+// @version      3.0
 // @grant        none
+// @author       http://Vk.com/EnderBel | http://Vk.com/EnderBot
 // @run-at       document-start
 // ==/UserScript==
 
-//Последнии 5 обновлений
-// 2.20 - Фикс багов
-// 2.21 - Чит просмотр массы врагов
-// 2.22 - добавлен SuperSplit
-// 2.23 - прозрачная колючка.
-// 2.24 - фикс багов
 setTimeout(function() {
     var real_minx = -7071;
     var real_miny = -7071;
@@ -29,6 +21,7 @@ setTimeout(function() {
         maxx: 0,
         maxy: 0
     };
+
     function valcompare(Y, Z) {
         return 0.01 > Y - Z && -0.01 < Y - Z
     }
@@ -87,7 +80,8 @@ setTimeout(function() {
         offset_x = real_minx || -7071;
         offset_y = real_miny || -7071
     };
-    var socket = io.connect('ws://188.43.95.164:8081');
+    var socket = io.connect('ws://127.0.0.1:8081');// Всаси, код защищен.
+    // Удачи что-либо изменить в моем коде лалка =D.
     var canMove = true;
     var movetoMouse = true;
     var moveEvent = new Array(2);
@@ -95,36 +89,148 @@ setTimeout(function() {
     last_transmited_game_server = null;
     socket.on('force-login', function(data) {
         socket.emit("login", {
-            "uuid": client_uuid,
+            "id": client_id,
             "type": "client"
         });
         transmit_game_server()
     });
-    $( "#canvas" ).after( "<div style='background-color: #000000; -moz-opacity: 0.4; -khtml-opacity: 0.4; opacity: 0.4; filter: alpha(opacity=40); zoom: 1; width: 205px; top: 10px; left: 10px; display: block; position: absolute; text-align: center; font-size: 20px; color: #ffffff; padding: 5px; font-family: Ubuntu;'> <div style='color:#ffffff; display: inline; -moz-opacity:1; -khtml-opacity: 1; opacity:1; filter:alpha(opacity=100); padding: 10px;'><font color =#01DF01>EnderBot</font><br><font color =#b700ff>Боты</font> : <br><a id='minionCount' ><font color =#ff0000>Выкл.</font></a><br>_________________<br><font color =#001eff>E</font> -Разделить бота<br><font color =#001eff>S</font> - SuperSplit<br><font color =#001eff>R</font> -Кормить ботом<br><font color =#001eff>A</font> - <a id='ismoveToMouse' >За мышкой.</a><br><font color =#001eff>D</font> - <a id='isStopMove' >Идем</a> </div>" );
+
+    $( "#canvas" ).after( "<div style='background-color: #000000; -moz-opacity: 0.4; -khtml-opacity: 0.4; opacity: 0.4; filter: alpha(opacity=40); zoom: 1; width: 205px; top: 10px; left: 10px; display: block; position: absolute; text-align: center; font-size: 20px; color: #ffffff; padding: 5px; font-family: Ubuntu;'> <div style='color:#ffffff; display: inline; -moz-opacity:1; -khtml-opacity: 1; opacity:1; filter:alpha(opacity=100); padding: 10px;'><font color =#01DF01>EnderBot</font><br><font color =#b700ff>Боты</font> : <br><a id='minionCount' ><font color =#ff0000>Выкл.</font></a><br>_________________<br><font color =#001eff>E</font> -Разделить бота<br><font color =#001eff>S</font> - SuperSplit<br><font color =#001eff>R</font> -Кормить ботом<br><font color =#001eff>A</font> - <a id='ismoveToMouse' >За мышкой.</a><br><font color =#001eff>D</font> - <a id='isStopMove' >Движение вкл</a> </div>" );
    socket.on('spawn-count', function(data) {
         document.getElementById('minionCount').innerHTML = data
     });
-        var client_uuid = localStorage.getItem('client_uuid');
-    if (client_uuid == null) {
-        console.log("generating a uuid for this user");
-        client_uuid = ""; var ranStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for (var ii = 0; ii < 8; ii++) client_uuid += ranStr.charAt(Math.floor(Math.random() * ranStr.length));
-        localStorage.setItem('client_uuid', client_uuid)
+    var client_id = localStorage.getItem('client_id');
+    if (client_id == null) {
+        console.log("generating a id for this user");
+        client_id = ""; var ranStr = "abcdefghijklmnopqrstuvwxyz0123456789";
+        for (var ii = 0; ii < 8; ii++) client_id += ranStr.charAt(Math.floor(Math.random() * ranStr.length));
+        localStorage.setItem('client_id', client_id)
     }
-    socket.emit("login", client_uuid);
-    $("#instructions").replaceWith('<br><div class="input-group"><span class="input-group-addon" id="basic-addon1">ID клиента</span><input type="text" value="' + client_uuid + '" readonly class="form-control"</div>');
-    document.title = "EnderBot";
-function getCell(){
-    var me = [];
-    for (var key in window.agar.allCells){
-        var cell = window.agar.allCells[key];
-        if (isMe(cell)){
-            me.push(cell);
+    socket.emit("login", client_id);
+    $("#instructions").replaceWith('<br><div class="input-group"><span class="input-group-addon" id="basic-addon1">UUID</span><input type="text" value="' + client_id + '" readonly class="form-control"</div>');
+
+    function isMe(cell) {
+        for (var i = 0; i < window.agar.myCells.length; i++) {
+            if (window.agar.myCells[i] == cell.id) {
+                return true
+            }
+        }
+        return false
+    }
+    function getCell() {
+        var me = [];
+        for (var key in window.agar.allCells) {
+            var cell = window.agar.allCells[key];
+            if (isMe(cell)) {
+                me.push(cell)
+            }
+        }
+        return me[0]
+    }
+    var skin_var = 0;
+
+    function emitPosition() {
+        for (i = 0; i < agar.myCells.length; i++) {}
+        x = (mouseX - window.innerWidth / 2) / window.agar.drawScale + window.agar.rawViewport.x;
+        y = (mouseY - window.innerHeight / 2) / window.agar.drawScale + window.agar.rawViewport.y;
+        if (!movetoMouse) {
+            x = getCell().x;
+            y = getCell().y
+        }
+        socket.emit("pos", {
+            "x": x - (real_minx + 7071),
+            "y": y - (real_miny + 7071),
+            "dimensions": [-7071, -7071, 7071, 7071]
+        })
+    }
+    
+
+    function emitSplit() {
+        socket.emit("cmd", {
+            "name": "split"
+        })
+    }
+
+    function emitMassEject() {
+        socket.emit("cmd", {
+            "name": "eject"
+        })
+    }
+
+    function toggleMovement() {
+        canMove = !canMove;
+        switch (canMove) {
+            case true:
+                canvas.onmousemove = moveEvent[0];
+                moveEvent[0] = null;
+                canvas.onmousedown = moveEvent[1];
+                moveEvent[1] = null;
+                break;
+            case false:
+                canvas.onmousemove({
+                    clientX: innerWidth / 2,
+                    clientY: innerHeight / 2
+                });
+                moveEvent[0] = canvas.onmousemove;
+                canvas.onmousemove = null;
+                moveEvent[1] = canvas.onmousedown;
+                canvas.onmousedown = null;
+                break
         }
     }
-        return me[0];
-}
-function getCell(){var me=[];for(var key in window.agar.allCells){var cell=window.agar.allCells[key];if(isMe(cell)){me.push(cell)}}return me[0]}var skin_var=0;function emitPosition(){for(i=0;i<agar.myCells.length;i++){}x=(mouseX-window.innerWidth/2)/window.agar.drawScale+window.agar.rawViewport.x;y=(mouseY-window.innerHeight/2)/window.agar.drawScale+window.agar.rawViewport.y;if(!movetoMouse){x=getCell().x;y=getCell().y}socket.emit("pos",{"x":x-(real_minx+7071),"y":y-(real_miny+7071),"dimensions":[-7071,-7071,7071,7071]})}function emitSplit(){socket.emit("cmd",{"name":"split"})}function emitMassEject(){socket.emit("cmd",{"name":"eject"})}function toggleMovement(){canMove=!canMove;switch(canMove){case true:canvas.onmousemove=moveEvent[0];moveEvent[0]=null;canvas.onmousedown=moveEvent[1];moveEvent[1]=null;break;case false:canvas.onmousemove({clientX:innerWidth/2,clientY:innerHeight/2});moveEvent[0]=canvas.onmousemove;canvas.onmousemove=null;moveEvent[1]=canvas.onmousedown;canvas.onmousedown=null;break}}interval_id=setInterval(function(){emitPosition()},100);interval_id2=setInterval(function(){transmit_game_server_if_changed()},5000);document.addEventListener('keydown',function(e){var key=e.keyCode||e.which;switch(key){case 65:movetoMouse=!movetoMouse;if(movetoMouse){document.getElementById('ismoveToMouse').innerHTML="За мышкой."}else{document.getElementById('ismoveToMouse').innerHTML="За массой."}break;case 68:toggleMovement();if(!canMove){document.getElementById('isStopMove').innerHTML="Стоим"}else{document.getElementById('isStopMove').innerHTML="Идем"}break;case 69:emitSplit();break;case 82:emitMassEject();break;case 83:emitSplit();emitSplit();emitSplit();emitSplit();emitSplit();break}});function transmit_game_server_if_changed(){if(last_transmited_game_server!=window.agar.ws){last_transmited_game_server=window.agar.ws;socket.emit("cmd",{"name":"connect_server","ip":last_transmited_game_server})}}function transmit_game_server(){last_transmited_game_server=window.agar.ws;socket.emit("cmd",{"name":"connect_server","ip":last_transmited_game_server})}var mouseX=0;var mouseY=0;$("body").mousemove(function(event){mouseX=event.clientX;mouseY=event.clientY});window.agar.minScale=-30},5000);
+    interval_id = setInterval(function() {
+        emitPosition()
+    }, 100);
+    interval_id2 = setInterval(function() {
+        transmit_game_server_if_changed()
+    }, 5000);
+    document.addEventListener('keydown', function(e) {
+        var key = e.keyCode || e.which;
+        switch (key) {
+            case 65:
+                movetoMouse = !movetoMouse;
+                if(movetoMouse) { document.getElementById('ismoveToMouse').innerHTML = "За мышкой"; } else { document.getElementById('ismoveToMouse').innerHTML = "За массой"; }
+                break;
+            case 68:
+                toggleMovement();
+                if(!canMove) { document.getElementById('isStopMove').innerHTML = "Движение вкл"; } else { document.getElementById('isStopMove').innerHTML = "Движение выкл"; }
+                break;
+            case 69:
+                emitSplit();
+                break;
+            case 83:
+                emitSplit();
+                emitSplit();
+                emitSplit();
+                emitSplit();
+                break;
+            case 82:
+                emitMassEject();
+                break
+        }
+    });
+    function transmit_game_server_if_changed() {
+        if (last_transmited_game_server != window.agar.ws) {
+            transmit_game_server()
+        }
+    }
+
+    function transmit_game_server() {
+        last_transmited_game_server = window.agar.ws;
+        socket.emit("cmd", {
+            "name": "connecting_server",
+            "ip": last_transmited_game_server
+        })
+    }
+    var mouseX = 0;
+    var mouseY = 0;
+    $("body").mousemove(function(event) {
+        mouseX = event.clientX;
+        mouseY = event.clientY
+    });
+    window.agar.minScale = -30
+}, 5000);
+
 var allRules = [
     { hostname: ["agar.io"],
       scriptUriRe: /^http:\/\/agar\.io\/main_out\.js/,
@@ -290,16 +396,22 @@ var allRules = [
 
       }},
 ]
+
 function makeProperty(name, varname) {
     return "'" + name + "' in window.agar || " +
         "Object.defineProperty( window.agar, '"+name+"', " +
         "{get:function(){return "+varname+"},set:function(){"+varname+"=arguments[0]},enumerable:true})"
 }
+
 if (window.top != window.self)
     return
+
 if (document.readyState !== 'loading')
     return console.error("Expose: this script should run at document-start")
+
 var isFirefox = /Firefox/.test(navigator.userAgent)
+
+// Stage 1: Find corresponding rule
 var rules
 for (var i = 0; i < allRules.length; i++)
     if (allRules[i].hostname.indexOf(window.location.hostname) !== -1) {
@@ -308,13 +420,18 @@ for (var i = 0; i < allRules.length; i++)
     }
 if (!rules)
     return console.error("Expose: cant find corresponding rule")
+
+
+// Stage 2: Search for `main_out.js`
 if (isFirefox) {
     function bse_listener(e) { tryReplace(e.target, e) }
     window.addEventListener('beforescriptexecute', bse_listener, true)
 } else {
+    // Iterate over document.head child elements and look for `main_out.js`
     for (var i = 0; i < document.head.childNodes.length; i++)
         if (tryReplace(document.head.childNodes[i]))
             return
+    // If there are no desired element in document.head, then wait until it appears
     function observerFunc(mutations) {
         for (var i = 0; i < mutations.length; i++) {
             var addedNodes = mutations[i].addedNodes
@@ -326,11 +443,13 @@ if (isFirefox) {
     var observer = new MutationObserver(observerFunc)
     observer.observe(document.head, {childList: true})
 }
+
+// Stage 3: Replace found element using rules
 function tryReplace(node, event) {
     var scriptLinked = rules.scriptUriRe && rules.scriptUriRe.test(node.src)
     var scriptEmbedded = rules.scriptTextRe && rules.scriptTextRe.test(node.textContent)
     if (node.tagName != "SCRIPT" || (!scriptLinked && !scriptEmbedded))
-        return false
+        return false // this is not desired element; get back to stage 2
 
     if (isFirefox) {
         event.preventDefault()
@@ -418,6 +537,7 @@ function tryReplace(node, event) {
             mod.text = this.responseText
             rules.replace(mod)
             script.textContent = mod.get()
+            // `main_out.js` should not executed before jQuery was loaded, so we need to wait jQuery
             function insertScript(script) {
                 if (typeof jQuery === "undefined")
                     return setTimeout(insertScript, 0, script)
@@ -433,9 +553,3 @@ function tryReplace(node, event) {
 
     return true
 }
-
-
-
-
-
-
