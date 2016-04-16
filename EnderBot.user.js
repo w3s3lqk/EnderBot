@@ -12,7 +12,7 @@
 // ==/UserScript==
 
 //версия
-var EnderBotVersion = 3.1;
+var EnderBotVersion = 3.0;
 
 
 
