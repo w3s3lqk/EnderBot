@@ -11,7 +11,7 @@
 // @author       http://Vk.com/EnderBel | http://Vk.com/EnderBot
 // @run-at       document-start
 // ==/UserScript==
-
+var aposLauncherVersion = 4.0;
 setTimeout(function() {
     var real_minx = -7071;
     var real_miny = -7071;
