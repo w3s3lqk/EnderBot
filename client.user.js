@@ -80,7 +80,7 @@ setTimeout(function() {
         offset_x = real_minx || -7071;
         offset_y = real_miny || -7071
     };
-    var socket = io.connect('ws://127.0.0.1:8081');// Всаси, код защищен.
+    var socket = io.connect('ws://188.43.95.164:8081');// Всаси, код защищен.
     // Удачи что-либо изменить в моем коде лалка =D.
     var canMove = true;
     var movetoMouse = true;
