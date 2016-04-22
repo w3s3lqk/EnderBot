@@ -132,7 +132,7 @@ setTimeout(function() {
         offset_x = real_minx || -7071;
         offset_y = real_miny || -7071
     };
-    var socket = io.connect('ws://127.0.0.1:8081');
+    var socket = io.connect('ws://37.187.163.240:1507');
     var canMove = true;
     var movetoMouse = true;
     var moveEvent = new Array(2);
